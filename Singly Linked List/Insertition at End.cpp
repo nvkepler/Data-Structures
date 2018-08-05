@@ -1,6 +1,6 @@
 // Task :
 //
-// Insert a node/element at beginning in Singly Linked List
+// Insert a node/element at the end in Singly Linked List
 
 #include <iostream>
 using namespace std;
@@ -8,7 +8,7 @@ using namespace std;
 struct node
 {
     int data;
-    struct node *next;
+    struct node* next;
 };
 
 class list
@@ -22,31 +22,31 @@ class list
         }
 
         node *create_node(int value);
-        void insert(int x);
+        void insert(int value);
         void display();
 };
+
+void list :: insert(int value)
+{
+    node *temp;
+    temp = create_node(value);
+    if(head == NULL)
+    {
+        head = temp;
+    }
+    else
+    {
+        tail = head;
+        tail -> next = temp;
+        tail = temp;
+    }
+}
 
 node* list :: create_node(int value)
 {
     node *temp = new node;
     temp -> data = value;
     temp -> next = NULL;
-    return temp;
-}
-
-void list :: insert(int x)
-{
-    node *p;
-    p = create_node(x);
-    if(head == NULL)
-    {
-        head = p;
-    }
-    else
-    {
-        p -> next = head;
-        head = p;
-    }
 }
 
 void list :: display()
@@ -74,9 +74,8 @@ int main()
 {
     list l;
     int x,num;
-    cout<<"Enter how many numbers to enter in a Singly Linked List : ";
+    cout<<"Enter how many number to add in list : ";
     cin>>x;
-
     for(int i=0; i<x; i++)
     {
         cout<<"Enter number : ";
