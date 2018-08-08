@@ -58,13 +58,42 @@ void list :: delete_element(int no)
 {
     node *temp = new node;
     temp = head;
-    while(temp->data != no)
+    if(temp->data == no)
     {
-        temp = temp->next;
+        head = temp -> next;
+        head -> previous = NULL;
+        delete temp;
     }
-    temp->next->previous = temp->previous;
-    temp->previous->next = temp->next;
-    delete temp;
+    else
+    {
+        int flag = 0;
+        node *ptr = new node;
+        while(temp->data != no)
+        {
+            ptr = temp;
+            if(temp->next == NULL)
+            {
+                flag = 1;
+                break;
+            }
+            temp = temp->next;
+        }
+        if(temp->next == NULL)
+        {
+            ptr->next = NULL;
+            delete temp;
+        }
+        else
+        {
+            ptr -> next = temp -> next;
+            temp->next->previous = temp->previous;
+            delete temp;
+        }
+        if(flag == 1)
+        {
+            cout<<endl<<"*******Element not present for deletition*******"<<endl<<endl;
+        }
+    }
 }
 
 void list :: display()
@@ -90,7 +119,7 @@ void list :: display()
 int main()
 {
     list l;
-    int x,num,no;
+    int x,num;
     cout<<"Enter how many numbers to enter in Doubly Linked List : ";
     cin>>x;
 
@@ -101,10 +130,15 @@ int main()
         l.insert(num);
     }
 
+    cout<<endl<<"Before Deletition : "<<endl;
+    l.display();
+
+    int no;
     cout<<"Enter Number to delete : ";
     cin>>no;
     l.delete_element(no);
 
+    cout<<"After Deletition : "<<endl;
     l.display();
     return 0;
 }
