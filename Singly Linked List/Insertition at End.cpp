@@ -26,6 +26,14 @@ class list
         void display();
 };
 
+node* list :: create_node(int value)
+{
+    node *temp = new node;
+    temp -> data = value;
+    temp -> next = NULL;
+    return temp;
+}
+
 void list :: insert(int value)
 {
     node *temp;
@@ -33,20 +41,14 @@ void list :: insert(int value)
     if(head == NULL)
     {
         head = temp;
+        tail = head;
     }
     else
     {
-        tail = head;
         tail -> next = temp;
-        tail = temp;
+        tail = tail -> next;
     }
-}
 
-node* list :: create_node(int value)
-{
-    node *temp = new node;
-    temp -> data = value;
-    temp -> next = NULL;
 }
 
 void list :: display()
