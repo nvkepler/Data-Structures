@@ -53,16 +53,37 @@ void list :: insert(int value)
 
 void list :: delete_node(int number)
 {
+    int flag = 0;
     node* temp = new node;
     node* ptr = new node;
     temp = head;
-    while(temp->data != number)
+    if(temp->data == number)
     {
-        ptr = temp;
-        temp = temp->next;
+        head = temp->next;
+        delete temp;
     }
-    ptr -> next = temp -> next;
-    delete temp;
+    else
+    {
+        while(temp->data != number)
+        {
+            ptr = temp;
+            if(temp->next == NULL)
+            {
+                flag = 1;
+                break;
+            }
+            temp = temp->next;
+        }
+        if(flag == 1)
+        {
+            cout<<endl<<"*******Element not present for deletition*******"<<endl<<endl;
+        }
+        else
+        {
+            ptr -> next = temp -> next;
+            delete temp;
+        }
+    }
 }
 
 void list :: display()
@@ -98,7 +119,7 @@ int main()
         l.insert(num);
     }
 
-    cout<<"Before Deletition : "<<endl;
+    cout<<endl<<"Before Deletition : "<<endl;
     l.display();
 
     int no;
