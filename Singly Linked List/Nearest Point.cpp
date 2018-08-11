@@ -80,6 +80,7 @@ void list :: check(float a,float b)
     temp = head;
     float m,n,o,p,distance;
     float min = 9999;
+    int flag = 0;
 
     if(head == NULL)
     {
@@ -92,27 +93,40 @@ void list :: check(float a,float b)
         {
             m = temp->x;
             n = temp->y;
-            distance = sqrt(((m-a)*(m-a)) + ((n-b)*(n-b)));
 
-            if(distance < min)
+            if(a == m && b == n)
             {
-                min = distance;
-                o = m;
-                p = n;
+                cout<<endl<<"Elements already present in the List"<<endl;
+                flag = 1;
+                break;
+            }
+            else
+            {
+                distance = sqrt(((m-a)*(m-a)) + ((n-b)*(n-b)));
+
+                if(distance < min)
+                {
+                    min = distance;
+                    o = m;
+                    p = n;
+                }
             }
 
             temp = temp->next;
         }
 
-        cout<<"Minimum Distance : "<<min<<endl;
-        cout<<"Data is Close for X : "<<o<<"   Y : "<<p<<endl;
+        if(flag == 0)
+        {
+            cout<<endl<<"Minimum Distance : "<<min<<endl;
+            cout<<"Data is Close for X : "<<o<<"   Y : "<<p<<endl;
+        }
     }
 }
 
 int main()
 {
     list l;
-    int n,count = 0;
+    int n;
     float num1,num2;
     cout<<"Enter List Size : ";
     cin>>n;
@@ -123,23 +137,21 @@ int main()
         cin>>num1;
         cout<<"Enter Y : ";
         cin>>num2;
-        if(count<i)
-        {
-            cout<<"*******************************"<<endl;
-            count++;
-        }
+
+        cout<<"*******************************"<<endl;
+
         l.insert(num1,num2);
     }
 
+    cout<<"Coordinates Entered in List : "<<endl;
+
     l.display();
 
-    cout<<endl;
-
     float a,b;
-    
-    cout<<"Enter First Point : ";
+
+    cout<<"Enter First Coordinate to check : ";
     cin>>a;
-    cout<<"Enter Second Point : ";
+    cout<<"Enter Second Coordinate to check : ";
     cin>>b;
 
     l.check(a,b);
