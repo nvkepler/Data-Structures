@@ -1,71 +1,70 @@
-// Task :
-//
-// Push and Pop in Stack
-
-#include<bits/stdc++.h>
+#include <iostream>
 using namespace std;
-
-#define MAX 1000
 
 class Stack
 {
-    int top;
+    int top,MAX;
     public:
-        int a[MAX];
+        int arr[20];
 
         Stack()
         {
             top = -1;
+            MAX = 20;
         }
 
-        bool push(int x);
-        int pop();
-        bool isEmpty();
+        void push(int);
+        void pop();
         void display();
 };
 
-bool Stack::push(int x)
+void Stack :: push(int value)
 {
-    if (top >= (MAX-1))
+    if(top >= MAX)
     {
-        cout << "Stack Overflow";
-        return false;
+        cout<<"Overflow Occured"<<endl;
     }
     else
     {
-        a[++top] = x;
-        cout<<x<<" pushed"<<endl;
-        return true;
+        arr[++top] = value;
+        if(top > -1)
+        {
+            cout<<"Stack is : ";
+            for(int i=0; i<=top; i++)
+            {
+                cout<<arr[i]<<"  ";
+            }
+            cout<<endl;
+        }
     }
 }
 
-int Stack::pop()
+void Stack :: pop()
 {
-    if (top < 0)
+    if(top < 0)
     {
-        cout << "Stack Underflow";
-        return 0;
+        cout<<"Underflow Occured"<<endl;
     }
     else
     {
-        int x = a[top--];
-        cout<<x<<" poped"<<endl;
-        return x;
+        top = top-1;
+        cout<<"Stack is : ";
+        for(int i=0; i<=top; i++)
+        {
+            cout<<arr[i]<<"  ";
+        }
+        cout<<endl;
     }
 }
 
-bool Stack::isEmpty()
-{
-    return (top < 0);
-}
-
-void Stack::display()
+void Stack :: display()
 {
     if(top > -1)
+    {
+        cout<<"Final Result : ";
+        for(int i=0; i<=top; i++)
         {
-        for(int i=0; i<top; i++)
-        {
-            cout<<a[i]<<"  ";
+            cout<<arr[i]<<"  ";
         }
         cout<<endl;
     }
@@ -77,33 +76,42 @@ void Stack::display()
 
 int main()
 {
-    struct Stack s;
-    int num, choice,n;
-
+    Stack s;
+    int n,choice,number;
     cout<<"Enter Number of Steps : ";
     cin>>n;
 
+    cout<<"***************  MENU  ***************"<<endl;
+    cout<<"Press 1 to PUSH"<<endl;
+    cout<<"Press 2 to POP"<<endl;
+    cout<<"**************************************"<<endl;
+
     for(int i=0; i<n; i++)
     {
-        cout<<"Enter Choice :\n1 for PUSH\t2 for POP : ";
+        cout<<"Enter Your Choice : ";
         cin>>choice;
-        while(choice < 0 && choice > 3)
+
+        while(choice < 1 || choice > 2)
         {
-            cout<<"Wrong Choice Entered...TRY AGAIN...\n";
+            cout<<"Wrong Choice Entered... TRY AGAIN"<<endl;
+            cout<<"Enter Your Choice : ";
             cin>>choice;
         }
+
         if(choice == 1)
         {
-            cout<<"Enter Number to Push : ";
-            cin>>num;
-            s.push(num);
+            cout<<"Enter Number : ";
+            cin>>number;
+            s.push(number);
+            cout<<"*****************************"<<endl;
         }
-        else
+        else if(choice == 2)
         {
             s.pop();
+            cout<<"*****************************"<<endl;
         }
     }
-    
+
     s.display();
 
     return 0;
